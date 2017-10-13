@@ -1,0 +1,64 @@
+page-image-select {
+    font-size: 66%;
+}
+
+.directory-content{
+    padding: 1%;
+    width: 100%;
+    overflow: auto;
+}
+
+
+.directory-item{
+    width: 100%;
+    height: 10rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: white;
+    z-index: 1;
+}
+
+.directory-folder{
+    width: 100%;
+    height: 10rem;
+    background-image: url("../assets/images/folder-icon.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.item-name{
+    font-size: 1rem;
+    text-align: center;
+}
+
+#selected-image-number{
+    float: right;
+    padding-right: 1rem;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+#selected-image-title{
+    float: left;
+    padding-left: 1rem;
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.image-container{
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 10rem;
+    overflow: auto;
+}
+
+.image-icon{
+    display: block;
+    font-size:10rem;
+    color: #d2d2d2;
+    width: 100%;
+    text-align: center;
+}

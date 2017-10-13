@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar  align-title="left">
+    <div id="selected-image-title">
+      Select Photos to Transfer:
+    </div>
+    <div id="selected-image-number">Selected: </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <button style="height:200px;" (click)="buttonClicked()">Show images</button> 
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4 *ngFor="let directory of directorySubDirectories">
+          <div class="directory-folder"></div>
+          <div class="item-name">{{directory.name}}</div>
+      </ion-col >
+    </ion-row >
+  
+      <ion-row >
+          <ion-col col-4 *ngFor="let image of directoryImages">
+            <div class="image-container">
+                <div *ngIf="image.thumbnailPath != null, else showIcon" class="directory-item" [style.background-image]="image.thumbnailPath"></div>
+                <ng-template #showIcon>
+                  <ion-icon  name="images" class="image-icon" center></ion-icon>
+                </ng-template>
+            </div>
+              <div class="item-name">{{image.name}}</div>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+
+
+</ion-content>
