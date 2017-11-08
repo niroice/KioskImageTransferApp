@@ -1,5 +1,7 @@
+import { OptionsPopup } from './../components/options-popup/options-popup';
+import { IkSelectPage } from './../pages/ik-select/ik-select';
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, ChangeDetectorRef } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule, NavController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -7,17 +9,25 @@ import { StatusBar } from '@ionic-native/status-bar';
 // Custom Imported Components
 import { MyApp } from './app.component';
 import { ImageSelect } from '../pages/image-select/image-select';
+import { AlbumsSelectPage } from '../pages/albums-select/albums-select';
+//import { AlbumSortPage } from './../pages/album-sort/album-sort';
 
 // Custom Imported Services
-import { DirectoryService } from '../services/directory-service/directory.service';
 import { File } from '@ionic-native/file';
-import { Camera, CameraOptions } from '@ionic-native/camera';
 import { HttpModule } from '@angular/http';
+import { AlbumService } from './../services/album-service/album.service';
+import { ResizeImageService } from './../services/resize-image-service/resize-image-service';
+import { AlbumSortPage } from './../pages/album-sort/album-sort';
 
 @NgModule({
   declarations: [
     MyApp,
+    AlbumsSelectPage,
     ImageSelect,
+    IkSelectPage,
+    AlbumSortPage,
+    OptionsPopup,
+    
   ],
   imports: [
     BrowserModule,
@@ -26,14 +36,19 @@ import { HttpModule } from '@angular/http';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ImageSelect,
+    AlbumsSelectPage,
+    AlbumSortPage,
+    IkSelectPage,
+    ImageSelect
   ],
   providers: [
+    ResizeImageService,
+    AlbumService,
     StatusBar,
     SplashScreen,
-    DirectoryService,
     File,
     HttpModule,
+    OptionsPopup,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -1,0 +1,40 @@
+page-ik-select {
+    .options-screen-overlay{
+        position: static;
+        top: 0;
+        left:0;
+        width: 100vw;
+        height: 100vw;
+        z-index: 998;
+        background-color: rgba( 0, 0, 0, .5);
+        margin: 0;
+        padding: 0;
+    }
+
+    .options-container{
+        position: static;
+        z-index: 999;
+        background-color: white;
+        padding: 20px;
+    }
+
+    @media only screen and (orientation: portrait){
+        
+        .options-container{
+            width: 80vw;
+            height: auto;
+    
+        }
+
+    }
+
+    @media only screen and (orientation: landscape){
+        
+        .options-container{
+            width: 49.7vw;
+            height: auto;
+    
+        }
+        
+    }
+}

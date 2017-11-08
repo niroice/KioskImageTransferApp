@@ -1,6 +1,10 @@
-import { DirectoryService } from './../../services/directory-service/directory.service';
-import { Component, OnInit, ViewChild, IterableDiffer } from '@angular/core';
-import { NavController, Platform, Content } from 'ionic-angular';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { AlbumImage } from './../../app/classes/AlbumImage';
+import { Album } from './../../app/classes/Album';
+import { ResizeImageService } from './../../services/resize-image-service/resize-image-service';
+import { AlbumService } from './../../services/album-service/album.service';
+import { Component, OnInit, ViewChild, IterableDiffer, OnDestroy } from '@angular/core';
+import { NavController, Platform, Content, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { ChangeDetectorRef } from '@angular/core';
@@ -9,49 +13,45 @@ import { ChangeDetectorRef } from '@angular/core';
   selector: 'page-image-select',
   templateUrl: 'image-select.html'
 })
-export class ImageSelect implements OnInit  {
+export class ImageSelect implements OnInit, OnDestroy  {
 
-  public directoryImages: any[] = []; // list of current files and folders in the directory path
-  private directoryImagesLoaded:boolean;
-  public directorySubDirectories:any[] = [];
+  public images: AlbumImage[] = [];
   private readonly numberImagesRefreshLimit: number = 20;
   private referenceCheckIntervalTime: any;
 
 
   @ViewChild(Content) content: Content;
 
-  constructor(public navCtrl: NavController, public directoryService: DirectoryService, 
-     private ref:ChangeDetectorRef) {
+  constructor(public navCtrl: NavController, private navParms :NavParams, public domSanitizer: DomSanitizer, 
+     private ref:ChangeDetectorRef, private albumService: AlbumService, private resizeImageServcie: ResizeImageService) {
+
+    let albumIndex: number = this.navParms.get('albumIndex');    
+    this.images = this.albumService.getAlbum(albumIndex).getAlbumImages();
     
   }
 
-  ngOnInit(){
-    // this.content.ionScroll.subscribe(($event) => {
-    //   console.log("user is scrolling");
-    //   this.directoryService.pauseLoadingImages();
-    // });
+    ngOnInit(){
 
-    // this.content.ionScrollEnd.subscribe(($event) => {
-    //   console.log("user has stopped scrolling");
-    //   setTimeout(()=>{
-    //     this.directoryService.resumeLoadingImages();
-    //   },2000);
-    // });
-  }
+        this.referenceCheckIntervalTime = setInterval( ()=> {
+            this.ref.detectChanges();
+        },4000);
+        
+    }
 
-  public buttonClicked(){
-    this.directoryService.proccessImages();
-    this.directorySubDirectories = this.directoryService.getDirectorySubDirectories();
+    ngOnDestroy(){
+        clearInterval(this.referenceCheckIntervalTime);
+    }
 
-    this.directoryService.getDirectoryImages().subscribe((result)=>{
-      this.directoryImages = result;
-      this.ref.detectChanges();
+    public sanatiseURL(path:string):SafeUrl{
+        
+        return this.domSanitizer.bypassSecurityTrustStyle(path);
+        
+    }
 
-      this.referenceCheckIntervalTime = setInterval( ()=> {
-        this.ref.detectChanges();
-      },5000);
-    });
-  }
+    public generateThumbnailPath(image: AlbumImage){
+        let path: string = "url(\'" + image.getThumbnailPath() + "/" + image.getThumbnailName() + "\')";
+        return this.domSanitizer.bypassSecurityTrustStyle(path);
+    }
 
 
 }

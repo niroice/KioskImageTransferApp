@@ -1,35 +1,32 @@
-<ion-header>
-  <ion-navbar  align-title="left">
-    <div id="selected-image-title">
-      Select Photos to Transfer:
-    </div>
-    <div id="selected-image-number">Selected: </div>
-  </ion-navbar>
+<ion-header color="secondary">
+    <ion-navbar  align-title="left"  color="secondary">
+        <div class="logo-text">
+            Albums
+        </div> 
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <button style="height:200px;" (click)="buttonClicked()">Show images</button> 
 
-  <ion-grid>
-    <ion-row>
-      <ion-col col-4 *ngFor="let directory of directorySubDirectories">
-          <div class="directory-folder"></div>
-          <div class="item-name">{{directory.name}}</div>
-      </ion-col >
-    </ion-row >
-  
-      <ion-row >
-          <ion-col col-4 *ngFor="let image of directoryImages">
-            <div class="image-container">
-                <div *ngIf="image.thumbnailPath != null, else showIcon" class="directory-item" [style.background-image]="image.thumbnailPath"></div>
-                <ng-template #showIcon>
-                  <ion-icon  name="images" class="image-icon" center></ion-icon>
-                </ng-template>
+    <ion-list no-lines [virtualScroll]='images' approxItemHeight="150px"
+    bufferRatio="9" >
+
+        <div class="images-flex-container">
+
+            <div class="image-container" *virtualItem="let image; let i = index" (tap)="image.imageClicked()">
+                <div class="background-image"
+                    [style.background-image]="sanatiseURL(image.getThumbnailFullPath())">
+                </div>
+                        <div class="selected-tick" *ngIf="image.getSelectedStatus() == true"></div>
+                        
+                        <div class="image-text-overlay"> 
+                            <div class="image-filename"> {{ image.getImageFileName() }} </div>
+                        </div>
             </div>
-              <div class="item-name">{{image.name}}</div>
-          </ion-col>
-      </ion-row>
-  </ion-grid>
+            
+        </div>
+    </ion-list>
 
+    
 
 </ion-content>

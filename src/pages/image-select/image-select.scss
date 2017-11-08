@@ -1,64 +1,152 @@
 page-image-select {
-    font-size: 66%;
-}
 
-.directory-content{
-    padding: 1%;
-    width: 100%;
-    overflow: auto;
-}
+    .background-image{
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+    }
+
+    .default-image-icon{
+        background-image: url("../assets/images/image-icon.png");
+    }
+
+    .image-container{
+        position: relative;
+        margin: .3vw;
+    }
+
+    .image-text-overlay{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        background-color: rgba( 0, 0, 0, .65 );
+    }
+
+    .image-filename{
+        font-size: .8rem;
+        font-weight: 600;
+        color: white;
+        margin: 0;
+        padding: .2rem;
+        text-align: center;
+    }
+
+    .directory-content{
+        padding: 1%;
+        width: 100%;
+        overflow: auto;
+    }
 
 
-.directory-item{
-    width: 100%;
-    height: 10rem;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    background-color: white;
-    z-index: 1;
-}
+    .directory-item{
+        width: 100%;
+        height: 8.3rem;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
 
-.directory-folder{
-    width: 100%;
-    height: 10rem;
-    background-image: url("../assets/images/folder-icon.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}
+    .item-name{
+        font-size: 1rem;
+        text-align: center;
+        font-weight: 600;
+        color: white;
+        padding-top: .2rem;
+        padding-bottom: .2rem;
+    }
 
-.item-name{
-    font-size: 1rem;
-    text-align: center;
-}
+    #selected-image-number{
+        float: right;
+        padding-right: 1rem;
+        font-size: 1.4em;
+        font-weight: 600;
+    }
 
-#selected-image-number{
-    float: right;
-    padding-right: 1rem;
-    font-size: 1.4em;
-    font-weight: 600;
-}
+    #selected-image-title{
+        float: left;
+        padding-left: 1rem;
+        font-size: 1.4em;
+        font-weight: 600;
+    }
 
-#selected-image-title{
-    float: left;
-    padding-left: 1rem;
-    font-size: 1.4em;
-    font-weight: 600;
-}
+    .image-icon{
+        display: block;
+        font-size:8.20rem;
+        color: #d2d2d2;
+        width: 100%;
+        text-align: center;
+    }
 
-.image-container{
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    height: 10rem;
-    overflow: auto;
-}
+    .selected-tick{
+        background-image: url("../assets/images/selected-icon-white.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: absolute;
+        bottom: .5rem;
+        right: .5rem;
+        width: 3.5rem;
+        height: 3.5rem;
+        opacity: .8;
+    }
 
-.image-icon{
-    display: block;
-    font-size:10rem;
-    color: #d2d2d2;
-    width: 100%;
-    text-align: center;
+    .item-wrapper{
+        overflow: auto;
+        width: 33%;
+        margin: .12%;
+        // border-style: solid;
+        // border-width: .15rem;
+        // border-color: rgba(255,255,255,.7);
+
+    }
+
+    .footer-button{
+        text-align: center;
+        display: inline-block;
+    }
+
+    #items-container{
+        display: flex !important;
+        flex-wrap: wrap !important;
+        flex-flow: space-around !important;
+        overflow: auto !important;
+    }
+
+    #content-area{
+        padding-top: 1rem;
+        background-image: url("../assets/images/content-background.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .images-flex-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    @media only screen and (orientation: portrait){
+        
+        .image-container{
+            width: 24.33vw;
+            height: 18.3vw;
+        }
+    }
+    
+    @media only screen and (orientation: landscape){
+        
+        .image-container{
+            width: 11.89vw;
+            height: 8.92vw;
+        }
+        
+    }
 }

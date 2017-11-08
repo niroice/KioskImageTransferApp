@@ -14,3 +14,169 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+@import '../theme/variables.scss';
+
+body{
+    font-size: 66%;
+}
+
+h1{
+    font-size: 3rem;
+    font-weight: 800;
+    color: white;
+    margin: 0;
+    padding: .2rem;
+}
+
+h2{
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+    padding: .2rem;
+}
+
+h3{
+    font-size: 2rem;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+    padding: .2rem;
+}
+
+h4{
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+    padding: .2rem;
+}
+
+h5{
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+    padding: .2rem;
+}
+
+p{
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: black;
+    margin: 0;
+    padding-top: 1.8rem;
+    padding-top: 1.8rem;
+}
+
+.black{
+    color: black;
+}
+
+.logo-text{
+    font-weight: 600;
+    color: white;
+    font-size: 2rem;
+    padding-left: 1rem;
+}
+
+#nav-bar{
+   
+}
+
+.footer-container{
+    background-color: rgba(0,0,0,.4);
+}
+
+.nav-logo{
+    background-image:  url("../assets/images/transpix-logo-plain.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 30px;
+    width: 130px;
+    margin-left: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+    float: left;
+    background-position: 0 center;
+}
+
+.nav-left-buttons{
+    float: right;
+    overflow: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.nav-footer{
+    width: 100vw;
+    height: 58px;
+    background-color: rgba( 61, 167, 219, .7);
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+.nav-footer-filler{
+    width: 100vw;
+    height: 58px;
+    background-color: map-get($colors, primary);
+}
+
+.toolbar-md {
+    min-height: 60px;
+}
+
+ion-icon {
+    font-size: 28px;
+    padding-left: 10px;
+    padding-right: 20px;
+    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.list-md {
+    margin: -1px 0 0px !important;
+}
+
+.popover-album-sort{
+
+    .popover-content{
+        background-color: map-get($colors, secondary);
+    }
+
+}
+
+.pop-menu-header{
+    background-color: map-get($colors, primary);
+    color: white;
+    font-size: 1.5em;
+    margin-bottom: 2px;
+}
+
+.image-icon{
+    width: 28px;
+    height: 28px;
+    margin-left: 10px;
+    margin-right: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.sort-icon{
+    background-image: url("../assets/images/sort-icon.png");
+    float: right;
+}
+
+.send-button-icon{
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 !important;
+    font-size: 3rem !important;
+}

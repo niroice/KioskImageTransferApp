@@ -1,0 +1,64 @@
+page-albums-select {
+
+    #album-loading-spinner{
+        width: 100px;
+        height: 100px;
+    }
+
+    .album-container{
+        margin-top: .3rem;
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+
+    }
+
+    .album-text-container{
+        position: absolute;
+        background-color: rgba( 0, 0, 0, .5);
+        width: 100%;
+        overflow: auto;
+        bottom: 10%;
+        padding: .2rem;
+        text-align: center;
+    }
+
+    #img1{
+        background-image: url("../assets/images/london.jpg");
+    }
+
+    #img2{
+        background-image: url("../assets/images/paris.jpg");
+    }
+
+    #img3{
+        background-image: url("../assets/images/switzerland.jpg");
+    }
+
+    .albums-flex-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+
+    @media only screen and (orientation: portrait){
+
+        .album-container{
+            width: 100vw;
+            height: 25vh;
+    
+        }
+
+    }
+
+    @media only screen and (orientation: landscape){
+        
+        .album-container{
+            width: 49.7vw;
+            height: 42vh;
+    
+        }
+        
+    }
+}

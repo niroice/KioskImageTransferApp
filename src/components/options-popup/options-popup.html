@@ -1,0 +1,16 @@
+
+<div class="options-container" *ngIf="showOptionsMenu">
+    <div class="options-header-wrapper"> Send Images to:</div>
+    <div class="options-content" >
+        
+        <div class="options-item-wrapper" *ngFor="let option of optionsMenu.options">
+            <div class="options-kiosk-icon" [style.background-image]="option.iconURL" 
+            *ngIf="option.iconURL != null"></div>
+             {{ option.label }}
+        </div>
+       
+    </div>
+    <div class="options-cancel-wrapper">Back</div>
+</div>
+
+<div class="options-screen-overlay" *ngIf="showOptionsMenu"></div>

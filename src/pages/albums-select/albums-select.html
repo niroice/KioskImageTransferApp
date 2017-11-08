@@ -1,0 +1,36 @@
+<ion-header color="secondary">
+    <ion-navbar  align-title="left"  color="secondary">
+      <div class="nav-logo"></div>
+      <div class="nav-left-buttons">
+            <ion-icon name="help-circle" color="light"></ion-icon>
+            <div class="image-icon sort-icon" (tap)="createSortPopover($event)"></div>
+      </div>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content id="content-area">
+    <ion-list no-lines>
+
+        <div class="albums-flex-container">
+
+            <div class="album-container" *ngFor="let album of albums; let i = index" (tap)="loadAlbum(i)"
+            [style.background-image]="sanitizerStyle(album.getAlbumCoverPath())">
+                <div class="album-text-container">
+                    <h1>{{ album.getAlbumName() }}</h1>
+                    <h4>{{ album.getNumberImagesAlbum() }}</h4>
+                </div>
+            </div>
+        </div>
+
+    </ion-list>
+
+    <ion-fab bottom right>
+        <button ion-fab color="primary" *ngIf="imagesSelectedCount > 0" centre (tap)="createSelectIKPopover($event)"> 
+            <ion-icon name="send" class="send-button-icon"></ion-icon>
+        </button>
+    </ion-fab>
+
+    <options-popup></options-popup>
+  </ion-content>
+
+ 
