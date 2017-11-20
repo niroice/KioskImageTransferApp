@@ -1,4 +1,4 @@
-import { OptionsPopup } from './../../components/options-popup/options-popup';
+import { PopoverServiceProvider } from './../../components/options-popup/popover-service';
 import { IkSelectPage } from './../ik-select/ik-select';
 import { ResizeImageService } from './../../services/resize-image-service/resize-image-service';
 import { ImageSelect } from './../image-select/image-select';
@@ -8,7 +8,6 @@ import { Album } from './../../app/classes/Album';
 import { AlbumService } from './../../services/album-service/album.service';
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { PopoverController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 
 @IonicPage()
@@ -22,6 +21,7 @@ export class AlbumsSelectPage {
     public albumsLoading: boolean = true;
     public imagesSelectedCount: number = 1;
     private popoverCSSclass: string = 'popover-album-sort';
+    public showingPopup: boolean = false;
     private numberThumbnailToGenerate: number = 0;
 
     private readonly oneMinuteMilliseconds: number =  60000;
@@ -43,9 +43,9 @@ export class AlbumsSelectPage {
     `;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public albumService: AlbumService,
-                public popoverController: PopoverController, private domSanitizer: DomSanitizer,
+                private domSanitizer: DomSanitizer, private popoverServiceProvider: PopoverServiceProvider,
                 public loadingCtrl: LoadingController, public imageResizeService: ResizeImageService, 
-                private optionsPopup: OptionsPopup, private changeRef: ChangeDetectorRef) {
+                private changeRef: ChangeDetectorRef) {
     
 
         this.numberThumbnailToGenerate = this.albumService.getNumberThumbnailToGenerate();
@@ -116,28 +116,33 @@ export class AlbumsSelectPage {
     }
 
 
-    public createSortPopover(event){
-        let poppover = this.popoverController.create( AlbumSortPage, {}, { cssClass: 'popover-album-sort' } );
-
-        poppover.present({
-            ev: event
-        });
-
-    }
-
-
     public createSelectIKPopover(){
 
         let options: { iconURL: any, label:string, tapAction: string }[] = [];
 
+        this.showingPopup = true;
+        
         options.push( { iconURL: null, label: "IK01", tapAction: "" } );
+        options.push( { iconURL: null, label: "IK02", tapAction: "" } );
+        options.push( { iconURL: null, label: "IK03", tapAction: "" } );
+        options.push( { iconURL: null, label: "IK04", tapAction: "" } );
+        options.push( { iconURL: null, label: "IK05", tapAction: "" } );
+        options.push( { iconURL: null, label: "IK06", tapAction: "" } );
+        options.push( { iconURL: null, label: "IK07", tapAction: "" } );
+        options.push( { iconURL: null, label: "IK08", tapAction: "" } );
+        options.push( { iconURL: null, label: "IK09", tapAction: "" } );
+        options.push( { iconURL: null, label: "IK10", tapAction: "" } );
+        options.push( { iconURL: null, label: "IK11", tapAction: "" } );
+        options.push( { iconURL: null, label: "IK12", tapAction: "" } );
 
-        this.optionsPopup.create( { header: "", options: options });
+        console.log(options);
+    
+        this.popoverServiceProvider.createOptionsPopover({ header: "test header", options: options }).subscribe( result =>{
+            this.showingPopup = false;
+        });
 
+        this.popoverServiceProvider.present();
 
-        this.optionsPopup.present();
-
-        this.changeRef.detectChanges();
     }
 
 

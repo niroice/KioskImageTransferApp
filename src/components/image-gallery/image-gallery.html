@@ -1,0 +1,17 @@
+<ion-content>
+    <ion-list no-lines [virtualScroll]='images' [approxItemHeight]="displayService.getThumbnailHeight() + 'px'"
+        [approxItemWidth]="displayService.getThumbnailWidth() + 'px'" bufferRatio="6" >
+
+        <div class="image-container" *virtualItem="let image; let i = index" (tap)="image.imageClicked()"
+        [style.width.px]="displayService.getThumbnailWidth()" [style.height.px]="displayService.getThumbnailHeight()">
+            <div class="background-image"
+                [style.background-image]="sanatiseURL(image.getThumbnailFullPath())">
+            </div>
+                    <div class="selected-tick" *ngIf="image.getSelectedStatus() == true"></div>
+                    
+                    <div class="image-text-overlay" *ngIf="albumService.getShowFileNameStatus()"> 
+                        <div class="image-filename"> {{ image.getImageFileName() }} </div>
+                    </div>
+        </div>
+    </ion-list>
+</ion-content>

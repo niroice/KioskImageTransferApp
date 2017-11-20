@@ -1,12 +1,10 @@
 import { NgModule, ChangeDetectorRef } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
-import { OptionsPopup } from './options-popup/options-popup';
+import { ImageMenuOptionsComponent } from './image-menu-options/image-menu-options';
 
 @NgModule({
-	declarations: [OptionsPopup
-    ],
+	declarations: [ImageMenuOptionsComponent],
 	imports: [IonicModule],
-	exports: [OptionsPopup
-    ]
+	exports: [ImageMenuOptionsComponent]
 })
 export class ComponentsModule {}

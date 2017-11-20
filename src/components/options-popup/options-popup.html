@@ -1,16 +1,21 @@
 
-<div class="options-container" *ngIf="showOptionsMenu">
-    <div class="options-header-wrapper"> Send Images to:</div>
-    <div class="options-content" >
+<div class="flex-container" *ngIf="popoverServiceProvider.showMenuBoolean == true" >
+    <div id="options-container" 
+            [style.transform] = "'scale(' + containerCurrentScale +')'">
+        <div class="options-header-wrapper"> Send Images to:</div>
+        <div class="options-content" >
+            
+            <div class="options-item-wrapper" *ngFor="let option of popoverServiceProvider.optionsMenu.options"
+            (tap)="popoverServiceProvider.returnOption(option)" >
+                <div class="options-kiosk-icon" [style.background-image]="option.iconURL" 
+                *ngIf="option.iconURL != null"></div>
+                {{ option.label }}
+            </div>
         
-        <div class="options-item-wrapper" *ngFor="let option of optionsMenu.options">
-            <div class="options-kiosk-icon" [style.background-image]="option.iconURL" 
-            *ngIf="option.iconURL != null"></div>
-             {{ option.label }}
         </div>
-       
+        <div class="options-cancel-wrapper" (tap)= "popoverServiceProvider.cancel()">Back</div>
     </div>
-    <div class="options-cancel-wrapper">Back</div>
+
 </div>
 
-<div class="options-screen-overlay" *ngIf="showOptionsMenu"></div>
+<div class="options-screen-overlay" *ngIf="popoverServiceProvider.showMenuBoolean == true"></div>

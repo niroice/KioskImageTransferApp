@@ -1,0 +1,69 @@
+<div class="options-list-wrapper">
+    <ion-list>
+        <ion-list-header  class="pop-menu-header">Image Select</ion-list-header>
+        <ion-item (tap)= "selectAllImages()" > 
+            <ion-label>Select All</ion-label>
+        </ion-item>
+        <ion-item (tap)= "deselectAllImages()"> 
+            <ion-label> De-Select All</ion-label>
+        </ion-item>
+    </ion-list>
+</div>
+
+
+<div class="options-list-wrapper">
+    <ion-list radio-group [(ngModel)]="currentSortImagesBy" (ionChange)="setImageSortBy()">
+        <ion-list-header class="pop-menu-header"> Sort Images</ion-list-header>
+        <ion-item>
+            <ion-label>Newest to Oldest</ion-label>
+            <ion-radio [value]="sortNewestToOldest"></ion-radio>
+        </ion-item>
+        <ion-item>
+                <ion-label>Oldest to Newest</ion-label>
+                <ion-radio [value]="sortOldestToNewest"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Name Asending</ion-label>
+            <ion-radio [value]="sortFileNameAscending"></ion-radio>
+        </ion-item>
+        <ion-item>
+            <ion-label>Name Desending</ion-label>
+            <ion-radio [value]="sortFileNameDescending"></ion-radio>
+        </ion-item>           
+    </ion-list>
+</div>
+
+
+<div class="options-list-wrapper">
+    <ion-list radio-group  [(ngModel)]="currentThumbnailSize" (ionChange)="setThumbnailSize()">
+        <ion-list-header  class="pop-menu-header">Thumbnails Size</ion-list-header>
+
+        <ion-item> 
+            <ion-label>Small</ion-label>
+            <ion-radio [value]='smallThumbnail'></ion-radio>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Medium</ion-label>
+            <ion-radio [value]="mediumThumbnail"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+                <ion-label>Large</ion-label>
+                <ion-radio [value]="largeThumbnail"></ion-radio>
+        </ion-item>
+        
+        
+    </ion-list>
+</div>
+
+<div class="options-list-wrapper">
+    <ion-list>
+        <ion-list-header  class="pop-menu-header">File Name</ion-list-header>
+        <ion-item> 
+            <ion-label> Show </ion-label>
+            <ion-checkbox [(ngModel)]="showFileNameStatus" (ionChange)='setShowFileNameStatus()' ></ion-checkbox>
+        </ion-item>
+
+    </ion-list>
+</div>

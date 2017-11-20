@@ -2,8 +2,16 @@
     <ion-navbar  align-title="left"  color="secondary">
       <div class="nav-logo"></div>
       <div class="nav-left-buttons">
-            <ion-icon name="help-circle" color="light"></ion-icon>
+          
             <div class="image-icon sort-icon" (tap)="createSortPopover($event)"></div>
+
+            <div class="image-selected-wrapper">
+                    <div class="nav-select-image-counter">
+                            {{ albumService.getNumberImagesSelected() }}
+                    </div>
+                    
+                    <ion-icon name="image" class="nav-image-icon" ></ion-icon>
+            </div>
       </div>
     </ion-navbar>
   </ion-header>
@@ -24,13 +32,13 @@
 
     </ion-list>
 
-    <ion-fab bottom right>
-        <button ion-fab color="primary" *ngIf="imagesSelectedCount > 0" centre (tap)="createSelectIKPopover($event)"> 
+    <ion-fab bottom right *ngIf="albumService.getNumberImagesSelected() > 0 && showingPopup == false" >
+        <button ion-fab color="primary" centre (tap)="createSelectIKPopover($event)"> 
             <ion-icon name="send" class="send-button-icon"></ion-icon>
         </button>
-    </ion-fab>
+    </ion-fab> 
 
-    <options-popup></options-popup>
+    <options-popup> </options-popup>
   </ion-content>
 
  

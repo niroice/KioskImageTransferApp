@@ -3,30 +3,49 @@
         <div class="logo-text">
             Albums
         </div> 
+
+        <div class="nav-left-buttons">
+
+            <ion-icon name="more" (tap)="showOptionsMenu($event)" class="nav-options-icon"></ion-icon>
+
+            <div class="image-selected-wrapper">
+                <div class="nav-select-image-counter">
+                        {{ albumService.getNumberImagesSelected() }}
+                </div>
+                
+                <ion-icon name="image" class="nav-image-icon" ></ion-icon>
+            </div>
+
+        </div>
+        
     </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="showGallery == true">
 
-    <ion-list no-lines [virtualScroll]='images' approxItemHeight="150px"
-    bufferRatio="9" >
+    <ion-list no-lines [virtualScroll]='images' [approxItemHeight]="approxHeight"
+    [approxItemWidth]="approxWidth" bufferRatio="6" >
 
-        <div class="images-flex-container">
-
-            <div class="image-container" *virtualItem="let image; let i = index" (tap)="image.imageClicked()">
-                <div class="background-image"
-                    [style.background-image]="sanatiseURL(image.getThumbnailFullPath())">
-                </div>
-                        <div class="selected-tick" *ngIf="image.getSelectedStatus() == true"></div>
-                        
-                        <div class="image-text-overlay"> 
-                            <div class="image-filename"> {{ image.getImageFileName() }} </div>
-                        </div>
+        <div class="image-container" *virtualItem="let image; let i = index" (tap)="imageClicked(image)"
+        [style.width.px]="displayService.getThumbnailWidth()" [style.height.px]="displayService.getThumbnailHeight()">
+            <div class="background-image"
+                [style.background-image]="sanatiseURL(image.getThumbnailFullPath())">
             </div>
-            
+                    <div class="selected-tick" *ngIf="image.getSelectedStatus() == true"></div>
+                    
+                    <div class="image-text-overlay" *ngIf="albumService.getShowFileNameStatus()"> 
+                        <div class="image-filename"> {{ image.getImageFileName() }} </div>
+                    </div>
         </div>
     </ion-list>
 
-    
+    <ion-fab bottom right *ngIf="albumService.getNumberImagesSelected() > 0 && showingPopup == false" >
+        <button ion-fab color="primary"  centre (tap)="createSelectIKPopover($event)"> 
+            <ion-icon name="send" class="send-button-icon"></ion-icon>
+        </button>
+    </ion-fab> 
+
+    <options-popup> </options-popup>
 
 </ion-content>
+

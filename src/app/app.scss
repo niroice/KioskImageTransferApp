@@ -77,8 +77,10 @@ p{
 .logo-text{
     font-weight: 600;
     color: white;
-    font-size: 2rem;
+    font-size: 2.2rem;
     padding-left: 1rem;
+    padding-top: 2px;
+    float: left;
 }
 
 #nav-bar{
@@ -136,6 +138,7 @@ ion-icon {
     color: white;
     margin-top: auto;
     margin-bottom: auto;
+    display: inline-block;
 }
 
 .list-md {
@@ -153,8 +156,12 @@ ion-icon {
 .pop-menu-header{
     background-color: map-get($colors, primary);
     color: white;
-    font-size: 1.5em;
+    font-size: 1.6rem;
     margin-bottom: 2px;
+}
+
+.options-list-wrapper{
+    overflow: auto;
 }
 
 .image-icon{
@@ -179,4 +186,26 @@ ion-icon {
     margin-right: auto !important;
     padding: 0 !important;
     font-size: 3rem !important;
+}
+
+.image-selected-wrapper{
+    overflow: auto;
+    padding-right: 20px;
+    float: right;
+}
+
+
+.nav-options-icon{
+    float: right;
+}
+
+.nav-select-image-counter{
+    float: left;
+    height: 28px;
+    text-align: center;
+    line-height: 28px;
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
+
 }

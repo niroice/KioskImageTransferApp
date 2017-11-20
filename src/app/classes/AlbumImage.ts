@@ -27,15 +27,8 @@ export class AlbumImage{
         this.thumbnailName = name;
     }
 
-    public imageClicked():boolean{
-        if (this.selected == true){
-            this.selected = false;
-        }
-        else{
-            this.selected = true;
-        }
-
-        return this.selected;
+    public setImageSelectedStatus(selected: boolean){
+        this.selected = selected;
     }
 
     public getImageFileName():string{

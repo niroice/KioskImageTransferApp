@@ -11,6 +11,11 @@ export class Album{
     private lastModified: number;
     //private albumThumbnails: AlbumImage[] = [];
     private albumThumbnail: AlbumImage;
+    private currentSortBy = "";
+    public readonly sortNewestToOldest = "newest-oldest";
+    public readonly sortOldestToNewest = "oldest-newest";
+    public readonly sortFileNameAscending = "a-z";
+    public readonly sortFileNameDescending = "z-a";
 
     constructor(name:string, path:string, numberImages:number, lastModified: number){
 
@@ -18,39 +23,8 @@ export class Album{
         this.albumPath = path;
         this.numberImages = numberImages;
         this.lastModified = lastModified;
+        this.currentSortBy = this.sortNewestToOldest;
     }
-
-    // // Description: Sets the album cover images based on the four lastest images
-    // // Parameters:  none
-    // // Return:      none
-    // public setAlbumCover(){
-
-    //     let numberThumbnailsRequired:number = 4;
-
-    //     this.sortImagesByModifiedDescending; // sort album by modified date first
-
-    //     // if album contains less then 4 images use that value instead to set
-    //     // get images for album cover
-    //     if (this.images.length < numberThumbnailsRequired){
-
-    //         numberThumbnailsRequired = this.images.length;
-    //     }
-
-    //     // check images are available
-    //     if (this.images.length < 1){
-    //         throw Error("AlbumImage - setAlbumCover() - No images currently set, add the images before setting the cover.");
-    //     }
-    //     else{
-    //         // sort array from latest to oldest
-    //         this.sortImagesByModifiedAscending();
-        
-    //         // get the 4 latest image and copy into album thumbnails for use
-    //         for (let i = 0; i < numberThumbnailsRequired; i++){
-    
-    //             this.albumThumbnails.push(this.images[i]);
-    //         }
-    //     }
-    // }
 
     // Description: Sets the album cover images as that latest image
     // Parameters:  none
@@ -63,7 +37,7 @@ export class Album{
         }
         else{
             // sort array from latest to oldest
-            this.sortImagesByModifiedAscending();
+            this. sortImagesNewestToOldest();
         
             // set the thumbnail as first element - recreate so its pass by value instead of reference
             this.albumThumbnail = new AlbumImage(
@@ -75,43 +49,41 @@ export class Album{
     }
 
 
-    // Description: Sorts all the current images loaded by Descending order when
-    //              they where last modified.
+    // Description: Sorts all the current images loaded by Newest to Oldest
     // Parameters:  none
     // Return:      none
-    public sortImagesByModifiedDescending(){
-
+    public sortImagesNewestToOldest(){
+        
         let sortedImages:AlbumImage[] = this.images.sort( (obj1, obj2) => {
             
             if (obj1.getImageLastModified() > obj2.getImageLastModified()) {
-                return 1;
+                return -1;
             }
         
             if (obj1.getImageLastModified() < obj2.getImageLastModified()) {
-                return -1;
+                return 1;
             }
         
             return 0;
         });
 
         this.images = sortedImages;
+        this.currentSortBy = this.sortNewestToOldest;
     }
 
 
-
-    // Description: Sorts all the current images loaded by Ascending order when
-    //              they where last modified.
+    // Description: Sorts all the current images from oldest to Newest
     // Parameters:  none
     // Return:      none
-    public sortImagesByModifiedAscending(){
+    public sortImagesOldestToNewest(){
 
         let sortedImages:AlbumImage[] = this.images.sort( (obj1, obj2) => {
             
-            if (obj1.getImageLastModified() < obj2.getImageLastModified()) {
+            if (obj1.getImageLastModified() > obj2.getImageLastModified()) {
                 return 1;
             }
         
-            if (obj1.getImageLastModified() > obj2.getImageLastModified()) {
+            if (obj1.getImageLastModified() < obj2.getImageLastModified()) {
                 return -1;
             }
         
@@ -119,6 +91,70 @@ export class Album{
         });
 
         this.images = sortedImages;
+        this.currentSortBy = this.sortOldestToNewest;
+    }
+
+
+    // Description: Sorts all the current images in the album by file name - ascending order (A-Z)
+    // Parameters:  none
+    // Return:      none
+    public sortImagesByNameAscending(){
+        
+        let sortedImages:AlbumImage[] = this.images.sort( (obj1, obj2) => {
+            
+            if (obj1.getImageFileName().toLowerCase() < obj2.getImageFileName().toLowerCase() ) {
+                return -1;
+            }
+        
+            if (obj1.getImageFileName().toLowerCase() > obj2.getImageFileName().toLowerCase() ) {
+                return 1;
+            }
+        
+            return 0;
+        });
+
+        this.images = sortedImages;
+        this.currentSortBy = this.sortFileNameAscending;
+    }
+
+
+    // Description: Sorts all the current images in the album by file name - Descending order (A-Z)
+    // Parameters:  none
+    // Return:      none
+    public sortImagesByNameDescending(){
+        
+        let sortedImages:AlbumImage[] = this.images.sort( (obj1, obj2) => {
+
+            if ( obj1.getImageFileName().toLowerCase() > obj2.getImageFileName().toLowerCase() ) {
+                return -1;
+            }
+        
+            if (obj1.getImageFileName().toLowerCase() < obj2.getImageFileName().toLowerCase() ) {
+                return 1;
+            }
+        
+            return 0;
+        });
+
+        this.images = sortedImages;
+        this.currentSortBy = this.sortFileNameDescending;
+    }
+
+
+    public setAllImagesToSelected(){
+
+        for ( let i :number = 0; i < this.images.length; i++ ){
+
+            this.images[i].setImageSelectedStatus(true);
+        }
+    }
+
+    public setAllImagesToUnselected(){
+        
+        for ( let i :number = 0; i < this.images.length; i++ ){
+
+            this.images[i].setImageSelectedStatus(false);
+        }
     }
 
 
@@ -177,27 +213,15 @@ export class Album{
         return this.images.length;
     }
 
-    // public setThumbnailPathByName(thumbnailName:string, thumbnailPath:string){
-
-    //     for (let i = 0; i < this.albumThumbnails.length; i++){
-
-    //         if (thumbnailName = this.albumThumbnails[i].getThumbnailName()){
-
-    //             this.albumThumbnails[i].setThumbnailPath(thumbnailPath);
-    //         }
-    //     }
-    // }
+    public getCurrentImageSortBy():string {
+        return this.currentSortBy;
+    }
 
     public setThumbnailPath(thumbnailPath:string){
 
        this.albumThumbnail.setThumbnailPath(thumbnailPath);
     }
 
-    // public setThumbnailPathByIndex(index:number, thumbnailPath:string){
-        
-    //     this.albumThumbnails[index].setThumbnailPath(thumbnailPath);
-            
-    // }
 
     public getAlbumCoverPath(): string{
         if ( this.albumThumbnail == undefined ){

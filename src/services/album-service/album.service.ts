@@ -60,6 +60,7 @@ export class AlbumService {
     private albums: Album[] = [];
 
     private gettingImageMeta:boolean = false;
+    private currentAlbumIndex: number;
 
     private resizeTime: any;
     private resizeTimeObservable: Observable<any>;
@@ -71,13 +72,22 @@ export class AlbumService {
                                     fileObj:any
                                 }[]= []; // list of directories to check for images
 
-    private selectedAlbumIndex: number =  null;
+    private showFileNameStatus: boolean = false; // default dont show file name
+    private readonly sortNewestToOldest = "newest-oldest";
+    private readonly sortOldestToNewest = "oldest-newest";
+    private readonly sortFileNameAscending = "a-z";
+    private readonly sortFileNameDescending = "z-a";
+    private currentSortBy: string; // default sort by option
+    private numberImagesSelected: number = 0;
+
+
+    
     
 
     constructor(  private fileAccess: IonicFile, private platform: Platform, 
                     private resizeImageService: ResizeImageService) {
 
-
+        this.currentSortBy = this.sortNewestToOldest; // set default sort newest to oldest
 
         this.calculateThumbnailResolutions();
 
@@ -171,22 +181,20 @@ export class AlbumService {
         // wait until platform is ready
         this.platform.ready().then(() => {
 
-        if (this.platform.is(this.ios)){
-            
-            this.directoryPath = this.defaultPathIOS;
-            this.OSRootPath = this.fileAccess.documentsDirectory;
-        }
-        else if (this.platform.is(this.android)){
-            
-            this.directoryPath = this.defaultPathAndroid;
-            this.OSRootPath = this.fileAccess.externalRootDirectory;
-        }
+            if (this.platform.is(this.ios)){
+                
+                this.directoryPath = this.defaultPathIOS;
+                this.OSRootPath = this.fileAccess.documentsDirectory;
+            }
+            else if (this.platform.is(this.android)){
+                
+                this.directoryPath = this.defaultPathAndroid;
+                this.OSRootPath = this.fileAccess.externalRootDirectory;
+            }
 
-        this.checkTranspixThumbnailFolderExists();
-        //this.FindAlbums();
+            this.checkTranspixThumbnailFolderExists();
 
-        // this.checkDirectoryObserver.next(true);
-         });
+        });
     }
 
     private FindAlbums(){
@@ -236,6 +244,7 @@ export class AlbumService {
         }
         });
     }
+
 
     // Description: Reads a directory and checks if it contains images, as well as adds any sub-directory
     //              to directoryToCheck for checking later. All direcory found to have images is added
@@ -319,6 +328,7 @@ export class AlbumService {
         });
     }
 
+
     private addImagesToAlbum(albumIndex: number, directoryImageFiles:any){
 
         let metaDataFoundCount: number = 0;
@@ -330,6 +340,7 @@ export class AlbumService {
             directoryImageFiles[i].getMetadata((metaData)=>{
 
                 metaDataFoundCount++
+                
                 // create new album image, set thumbnail path and add to the album
                 let image = new AlbumImage( 
                     decodeURIComponent(directoryImageFiles[i].name), 
@@ -375,25 +386,16 @@ export class AlbumService {
 
                 if ( result["completed"] != undefined && result["completed"] == true){
 
-                    // this.foundAlbumsObserver.next({
-                    //     status: 'albums-generated'
-                    // });
-
                      this.checkImageThumbnailsExist();
-                    // this.foundAlbumsObserver.complete();
                 }
             });
 
         }else {
 
-            // this.foundAlbumsObserver.next({
-            //     status: 'albums-generated'
-            // });
-
             this.checkImageThumbnailsExist();
-           // this.foundAlbumsObserver.complete();
         }
     }
+
 
     private checkImageThumbnailsExist(){
 
@@ -520,12 +522,6 @@ export class AlbumService {
                 numberImagesResized =  numberImagesResizeBeginning -  numberImagesResizeCurrent;
                 this.resizeTime = timePeriod / numberImagesResized;
 
-                console.log("album.service / numberImagesResizeCurrent = " + numberImagesResizeCurrent);
-                console.log("album.service / numberImagesResizeBeginning = " + numberImagesResizeBeginning);
-                console.log("album.service / numberImagesResizeCurrent = " + numberImagesResizeCurrent);
-                console.log("album.service / numberImagesResized = " + numberImagesResized);
-                console.log("album.service / this.resizeTime = " + this.resizeTime);
-
                 this.resizeTimeObserver.next({ averageResizeTime: this.resizeTime});
                 this.resizeTimeObserver.complete();
 
@@ -543,7 +539,8 @@ export class AlbumService {
     }
 
     public getAlbum(albumIndex: number){
-        return this.albums[albumIndex]
+
+        return this.albums[albumIndex];
     }
 
     public getCurrentAlbumSortBy(){
@@ -554,21 +551,44 @@ export class AlbumService {
         return this.albums;
     }
 
-    public sortCurrentAlbumByNameAscending(){
+    public setShowFileNameStatus(show: boolean){
+        this.showFileNameStatus = show;
+    }
 
+    public getShowFileNameStatus(): boolean{
+        return this.showFileNameStatus;
+    }
+
+    public sortCurrentAlbumByNameAscending(){
+        this.currentSortBy = this.sortFileNameAscending;
     }
 
     public sortCurrentAlbumByNameDescending(){
-        
+        this.currentSortBy = this.sortFileNameDescending;
     }
 
     public sortCurrentAlbumByNewestToOldest(){
-        
+        this.currentSortBy = this.sortNewestToOldest;
     }
 
     public sortCurrentAlbumByOldestToNewest(){
-        
+        this.currentSortBy = this.sortOldestToNewest;
     }
 
+    public getCurrentSortBy():string {
+       return this.currentSortBy;
+    }
+
+    public getNumberImagesSelected():number {
+        return this.numberImagesSelected;
+    }
+
+    public increaseImageSelectedCount(numberImage:number) {
+        this.numberImagesSelected += numberImage;
+    }
+
+    public decreaseImageSelectedCount(numberImagesUnselected:number) {
+        this.numberImagesSelected -= numberImagesUnselected;
+    }
  
 }

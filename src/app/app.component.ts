@@ -1,17 +1,19 @@
+import { DisplayService } from './../services/display-service/display-service';
 import { AlbumService } from './../services/album-service/album.service';
 import { AlbumsSelectPage } from './../pages/albums-select/albums-select';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, 
-    private albumService: AlbumService) {
+  constructor(  platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, 
+                private albumService: AlbumService, private displayService: DisplayService) {
 
     platform.ready().then(() => {
 

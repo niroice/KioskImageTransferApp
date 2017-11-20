@@ -1,4 +1,12 @@
-options-overlay {
+options-popup {
+
+    #test{
+        position: fixed;
+        z-index: 1005;
+        background-color: red;
+        overflow: auto;
+        padding: 20px;
+    }
 
     body{
         margin: 0;
@@ -10,42 +18,33 @@ options-overlay {
         padding: 0;
     }
 
-
-    .options-flex-container{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        width: 100vw;
-    }
-
     .options-screen-overlay{
         position: fixed;
         top: 0;
         left:0;
         width: 100vw;
         height: 100vh;
-        z-index: 1000;
+        z-index: 1000 !important;
         background-color: rgba( 0, 0, 0, .5);
         margin: 0;
         padding: 0;
     }
 
-    .options-container{
+    #options-container{
         position: fixed;
         border-radius: 10px;
-        z-index: 1001;
+        //z-index: 1001;
         background-color: white;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-         box-shadow: 1px 1px 5px rgba(0, 0, 0, .7);
+        // top: 50%;
+        // left: 50%;
+        // transform: translate(-50%, -50%);
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, .7);
     }
 
     .options-content{
         padding: 0;
         width: 100%;
-        max-height: 70vh;
+        max-height: 60vh;
         overflow-y: scroll;
     }
 
@@ -57,6 +56,7 @@ options-overlay {
         width: 100%;
         font-weight: 600;
         text-align: center;
+        font-size: 1.8rem;
     }
 
     .options-header-wrapper{
@@ -93,10 +93,23 @@ options-overlay {
         margin-right: 10px;
     }
 
+    .flex-container{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1001;
+
+    }
+
     @media only screen and (orientation: portrait){
         
-        .options-container{
-            width: 80vw;
+        #options-container{
+            width: 70vw;
             height: auto;
     
         }
@@ -105,11 +118,16 @@ options-overlay {
 
     @media only screen and (orientation: landscape){
         
-        .options-container{
-            width: 49.7vw;
+        #options-container{
+            width: 35vw;
             height: auto;
     
         }
         
     }
+}
+
+.no-scroll .scroll-content{
+    overflow: hidden !important;
+
 }
